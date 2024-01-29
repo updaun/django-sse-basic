@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SSE Demo</title>
+</head>
+<body>
+    <h1>서버로부터 받은 데이터:</h1>
+    <div id="sse-data"></div>
+
+    <script>
+        var eventSource = new EventSource("/stream/");
+
+        eventSource.onmessage = function(event) {
+            var sseDataDiv = document.getElementById("sse-data");
+            // 새 메시지를 기존 메시지에 추가합니다.
+            sseDataDiv.innerHTML += event.data + '<br>';
+        };
+
+        eventSource.onerror = function(error) {
+            console.error("EventSource failed:", error);
+        };
+    </script>
+</body>
+</html>
